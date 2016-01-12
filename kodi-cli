@@ -10,11 +10,11 @@
  
 ## Configure your XBMC RPC details here
 #set -x
- 
-XBMC_HOST=192.168.0.103
-XBMC_PORT=80
-XBMC_USER=
-XBMC_PASS=
+
+XBMC_HOST="${XBMC_HOST:-localhost}"
+XBMC_PORT="${XBMC_PORT:-80}"
+XBMC_USER="${XBMC_USER:-}"
+XBMC_PASS="${XBMC_PASS:-}"
 LOCK=false
 
 function xbmc_req {
