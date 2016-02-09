@@ -5,7 +5,7 @@ Kodi/XBMC bash script to send Kodi commands using JSON RPC. It also allows sendi
 
 #Usage
 
-`kodi-cli [-p|i|h|s|m|y youtube URL/ID|t 'text to send'|v volume]`
+`kodi-cli [-p|i|h|s|m|y youtube URL/ID|t 'popup text'|x 'text to send'|v volume]`
 
 #Arguments
 ```
@@ -16,7 +16,8 @@ Kodi/XBMC bash script to send Kodi commands using JSON RPC. It also allows sendi
 -y play youtube video. Use either URL/ID (of video)
 -o play youtube video directly on Kodi. Use the name of video.
 -i interactive navigation mode. Accept keyboard keys of Up, Down, Left, Right, Back, Context menu and information
--t 'text to send'
+-x 'text to send'
+-t 'show popup with text'
 -h displaying this help message
 ```
 

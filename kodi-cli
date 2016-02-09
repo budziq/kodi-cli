@@ -59,6 +59,12 @@ function send_text {
   xbmc_req '{"jsonrpc": "2.0", "method": "Input.SendText", "params": { "text": "'$1'" }}'
 }
 
+function show_popup {
+  echo "Showing popup"
+  REQ=$(printf '{"id":1,"jsonrpc":"2.0","method":"GUI.ShowNotification","params":{"title":"%s","message":"%s"}}' "$1" "$2")
+  xbmc_req "$REQ"
+}
+
 function set_volume {
   VOL="$1"
   if [[ $VOL =~ ^-?[0-9]+$ ]] && ((VOL>=0 && VOL<=100)) ; then
@@ -132,7 +138,7 @@ done
 }
 
 function print_usage {
-    echo -e "\n kodi-cli [-p|i|h|s|m|y youtube URL/ID|t 'text to send'|v volume]\n\n" \
+    echo -e "\n kodi-cli [-p|i|h|s|m|y youtube URL/ID|t 'popup text'|x 'text to send'|v volume]\n\n" \
     "-p Play/Pause the current played video\n" \
     "-s Stop the current played video\n" \
     "-m Toggle audio mute\n" \
@@ -141,12 +147,13 @@ function print_usage {
     "-o play youtube video directly on Kodi. Use the name of video.\n" \
     "-i interactive navigation mode. Accept keyboard keys of Up, Down, Left, Right, Back,\n" \
     "	Context menu and information\n" \
-    "-t 'text to send'\n" \
+    "-x 'text to send'\n" \
+    "-t 'show popup with text'\n" \
     "-h displaying this help message\n"
 }
 
 ## Process command line arguments
-while getopts "mv:y:o:pst:ih" opt; do
+while getopts "mv:y:o:pst:x:ih" opt; do
         case $opt in
 		y)
 			#play youtube video
@@ -169,7 +176,11 @@ while getopts "mv:y:o:pst:ih" opt; do
 		m)
 			toggle_mute
 			;;
-		t)	send_text $2
+		t)
+            show_popup "$2" "$3"
+			;;
+		x)
+            send_text "$2"
 			handle_keys
 			;;
 		i)
